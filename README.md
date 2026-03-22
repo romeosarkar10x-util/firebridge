@@ -1,73 +1,49 @@
-# React + TypeScript + Vite
+# 🔥 FireBridge
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A lightweight web tool that bridges Firebase Authentication into usable API tokens — built for developers who need quick access to ID tokens for API testing and internal API usage.
 
-Currently, two official plugins are available:
+## What is FireBridge?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Many services (like ElevenLabs) use Firebase for user authentication under the hood. When you want to test their internal or undocumented APIs, you need a valid Firebase ID token to use as a Bearer token. Getting one manually is a pain.
 
-## React Compiler
+**FireBridge simplifies this.** Enter your credentials, and FireBridge calls Firebase Auth with the service's public API key — instantly returning a usable ID token. No browser DevTools, no manual token extraction, no hassle.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## How It Works
 
-## Expanding the ESLint configuration
+1. **Sign In** — Enter your email and password for the target service.
+2. **Get Token** — FireBridge authenticates via Firebase REST API and displays your ID token.
+3. **Use It** — Copy the token and use it as a `Bearer` token in your API requests.
+4. **Refresh** — Token expired? Hit refresh to exchange your refresh token for a new ID token.
+5. **Sign Out** — Clears all tokens and session data. Nothing is stored.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Use Cases
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Testing internal/undocumented APIs of Firebase-backed services
+- Quickly grabbing a Bearer token without digging through browser DevTools
+- Automating API workflows that require Firebase authentication
+- Exploring and reverse-engineering service APIs
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Security
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **No data is stored.** Tokens exist only in your browser session.
+- **No backend.** All Firebase calls happen client-side.
+- **Sign out clears everything.** No cookies, no local storage persistence.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+> ⚠️ **Disclaimer:** FireBridge is a developer tool intended for legitimate API testing with your own accounts. Use responsibly and in accordance with the target service's terms of use.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Tech Stack
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Single-page web application
+- Firebase Auth REST API
+- No backend server required
+
+## Getting Started
+
+1. Clone the repo
+2. Open `index.html` in your browser (or serve it locally)
+3. Enter the service's Firebase API key and your credentials
+4. Get your token and start testing
+
+## License
+
+MIT
